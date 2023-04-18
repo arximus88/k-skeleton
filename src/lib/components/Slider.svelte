@@ -58,11 +58,8 @@
 		data-allowfullscreen="true"
 	>
 		{#each Array.from({ length: to - from + 1 }, (_, i) => from + i) as number}
-			<a href={`/images/projects/${folder}/${number}.jpg`} alt={`photo${number}`}> </a>
+			<a href={`/images/projects/${folder}/${number}.jpg`} title={`photo${number}`}> </a>
 		{/each}
-		<!-- {#each Array.from({ length: to - from + 1 }, (_, i) => from + i) as number}
-			<img src={`/images/projects/${folder}/${number}.jpg`} alt={`photo${number}`} />
-		{/each} -->
 	</div>
 </div>
 

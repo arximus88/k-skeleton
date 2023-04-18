@@ -1,6 +1,6 @@
 <script>
 	export let bg = '#FFAC8A';
-	export let avatar = Math.floor(Math.random() * 12) + 1;
+	export let avatar;
 
 	const style = `background-color: ${bg}`;
 </script>

@@ -2,8 +2,7 @@
 	"extends": "./.svelte-kit/tsconfig.json",
 	"compilerOptions": {
 		"moduleResolution": "node",
-		"allowJs": true,
-		"checkJs": true,
+		"noImplicitAny": false,
 		"module": "es2020",
 		"lib": ["es2020", "dom"],
 		"target": "es2020",
@@ -17,8 +16,10 @@
 		"types": ["svelte"]
 	},
 	"include": ["src/**/*.ts", "src/**/*.svelte", "src/service-worker.js"],
-	"exclude": ["node_modules/*", "__sapper__/*", "public/*"]
+	"exclude": ["node_modules/*", "__sapper__/*", "public/*", "/.svelte-kit/types/src/*"]
 }
+
+
 
 // "compilerOptions": {
 // 	"allowJs": true,
