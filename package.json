@@ -34,6 +34,8 @@
 	"type": "module",
 	"dependencies": {
 		"@notionhq/client": "^2.2.4",
-		"deta": "^1.1.0"
+		"deta": "^1.1.0",
+		"dotenv": "^16.0.3",
+		"mongodb": "^5.3.0"
 	}
 }
