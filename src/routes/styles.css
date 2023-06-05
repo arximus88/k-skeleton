@@ -34,11 +34,11 @@
 }
 
 body {
-	min-height: 100vh;
+	min-height: 100svh;
 	margin: 0;
 	background-attachment: fixed;
 	background-color: var(--body-bg-color);
-	background-size: 100vw 100vh;
+	background-size: 100vw 100dvh;
 	font-weight: 500;
 }
 
