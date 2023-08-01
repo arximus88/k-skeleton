@@ -61,14 +61,44 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "projects/human-park.md",
+                "file": "structure.md",
+                "mode": "preview",
+                "source": true
+              }
+            }
+          },
+          {
+            "id": "678c8e62f926674f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "structure-test.md",
                 "mode": "source",
                 "source": true
               }
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 5
+      },
+      {
+        "id": "adffeee2df34fd6a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "0c42028d2a3adcd9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "structure-test.md",
+                "mode": "preview",
+                "source": true
+              }
+            }
+          }
+        ]
       }
     ],
     "direction": "vertical"
@@ -134,7 +164,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "projects/human-park.md",
+                "file": "structure-test.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -151,7 +181,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "projects/human-park.md",
+                "file": "structure-test.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -174,7 +204,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "projects/human-park.md"
+                "file": "structure-test.md"
               }
             }
           }
@@ -194,8 +224,11 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "ba5529dd19be76c1",
+  "active": "0c42028d2a3adcd9",
   "lastOpenFiles": [
+    "structure.md",
+    "structure-test.md",
+    "projects/human-park.md",
     "projects/visit-placer.md",
     "projects/visit-fallon.md",
     "projects/vhs.md",
@@ -207,8 +240,6 @@
     "projects/edgewood-tahoe.md",
     "projects/chegg.md",
     "projects/zed-run.md",
-    "structure.md",
-    "projects/human-park.md",
     "projects"
   ]
 }
