@@ -15,7 +15,7 @@
 		"inlineSources": true,
 		"types": ["svelte"]
 	},
-	"include": ["src/**/*.ts", "src/**/*.svelte", "src/service-worker.js"],
+	"include": ["src/**/*.ts", "src/**/*.svelte", "src/service-worker.js", "src/routes/projects/posts/+server.js", "src/routes/projects/posts/+server.js"],
 	"exclude": ["node_modules/*", "__sapper__/*", "public/*", "/.svelte-kit/types/src/*"]
 }
 

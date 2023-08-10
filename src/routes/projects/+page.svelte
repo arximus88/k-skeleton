@@ -3,7 +3,9 @@
 	import Card from '$lib/components/Card_project.svelte';
 	export let data;
 	// rename
-	let projects = data.items.sort((a, b) => a.order - b.order);
+	// let projects = data.items.sort((a, b) => a.order - b.order);
+
+	let projects = data.projects;
 </script>
 
 <svelte:head>
