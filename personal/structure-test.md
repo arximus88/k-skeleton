@@ -13,7 +13,7 @@
   "folder": "zed-run",
   "visible": true,
   "disabled": false
-}
+  }
 ---
 # ZED RUN
 

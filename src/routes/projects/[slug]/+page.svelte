@@ -6,14 +6,13 @@
 	// This variable is set from the load function in +page.server.js
 	export let data;
 	// rename
-	let project = data;
-	// console.log(project);
-
+	let project = data.meta;
+	let content = data.meta.content;
 </script>
 
 <svelte:head>
 	<title>{project.title} - Project</title>
-	<meta name="description" content={project.description} />
+	<meta name="description" content={data.meta.description} />
 </svelte:head>
 
 <!-- Main content -->
@@ -25,7 +24,7 @@
 		</p>
 
 		<div>
-			{#each project.content as block}
+			{#each content as block}
 				{#if block.type === 'paragraph'}
 					<p class="large-text text-secondary">{@html block.content}</p>
 				{:else if block.type === 'quote'}

@@ -1,7 +1,7 @@
 <script>
-	let logo = '/images/logo-bo.png';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
-
+	let logo = '/images/logo-bo.png';
+	
 	let theme = { current: 'dark' };
 
 	import { onMount } from 'svelte';

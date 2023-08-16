@@ -9,18 +9,14 @@ async function getPosts() {
 
 	for (const path in paths) {
 		const file = paths[path]
-        console.log(path)
-		const slug = path.split('/').at(-1)?.replace('.md', '')
-        console.log(slug)
-		
+        const slug = path.split('/').at(-1)?.replace('.md', '')
+        
 		if (file && typeof file === 'object' && 'metadata' in file && slug) {
 			const metadata = file.metadata as Omit<Post, 'slug'>
 			const post = { ...metadata, slug } satisfies Post
 			!post.disabled && posts.push(post)
 		}
 	}
-
-    console.log(posts);
 
 	return posts
 }

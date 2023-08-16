@@ -13,13 +13,23 @@
 		"resolveJsonModule": true,
 		"sourceMap": true,
 		"inlineSources": true,
-		"types": ["svelte"]
+		"types": ["svelte", "md"],
+		"paths": {
+			"$projects": ["./personal/projects"],
+			"$lib": ["./src/lib"],
+			"$lib/*": ["./src/lib/*"]
+		}
 	},
-	"include": ["src/**/*.ts", "src/**/*.svelte", "src/service-worker.js", "src/routes/projects/posts/+server.js", "src/routes/projects/posts/+server.js"],
+	"include": [
+		"src/**/*.ts",
+		"src/**/*.svelte",
+		"src/service-worker.js",
+		"src/routes/projects/[slug]/+page.server.js",
+		"src/routes/projects/posts/+server.js",
+		"src/routes/projects/posts/+server.js"
+	],
 	"exclude": ["node_modules/*", "__sapper__/*", "public/*", "/.svelte-kit/types/src/*"]
 }
-
-
 
 // "compilerOptions": {
 // 	"allowJs": true,
