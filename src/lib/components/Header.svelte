@@ -4,6 +4,7 @@
 	
 	let theme = { current: 'dark' };
 
+	
 	import { onMount } from 'svelte';
 
 	onMount(() => {
@@ -14,11 +15,8 @@
 		document.documentElement.setAttribute('data-theme', theme.current);
 	});
 
-	function handleThemeChange() {
-		const newTheme = theme.current === 'dark' ? 'light' : 'dark';
-		theme.current = newTheme;
-		localStorage.setItem('theme', newTheme);
-		document.documentElement.setAttribute('data-theme', newTheme);
+	function handleThemeChange(e) {
+		
 	}
 </script>
 
@@ -31,7 +29,7 @@
 	</div>
 
 	<div class="corner">
-		<ThemeToggle on:click={handleThemeChange} {theme} />
+		<ThemeToggle on:click = {handleThemeChange} />
 	</div>
 </header>
 

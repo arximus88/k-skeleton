@@ -21,11 +21,9 @@
   year: 2020
   clientName: Virtually Human
   clientUrl: https://www.vhslab.com/
+  sliderFrom: 1
+  sliderTo: 13
   content: [
-    { content: {
-      from: 1,
-      to: 13
-    }, type: 'slider' },
     {
       content: 'I started working on ZED RUN as a Framer.js prototyper in November 2019, where <strong>I built an interactive horse racing prototype</strong> prior to the initial launch. After this, I began working on the website UI to prepare it for launch. Alongside the two founders, there were only backend and frontend engineers. We released the first iteration of zed.run and began selling the first batch of Z1 Nakamoto’s digital racehorses.',
       type: 'paragraph'

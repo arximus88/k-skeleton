@@ -111,4 +111,5 @@
 		-webkit-mask-repeat: no-repeat;
 		-webkit-mask-position: center;
 	}
+	
 </style>

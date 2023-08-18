@@ -24,6 +24,7 @@
 		</p>
 
 		<div>
+			<Slider folder={project.folder} from={project.sliderFrom} to={project.sliderTo} />
 			{#each content as block}
 				{#if block.type === 'paragraph'}
 					<p class="large-text text-secondary">{@html block.content}</p>
@@ -35,8 +36,6 @@
 					<hr class="solid" />
 				{:else if block.type === 'image'}
 					<img src={block.content} alt="" />
-				{:else if block.type === 'slider'}
-					<Slider folder={project.folder} from={block.content.from} to={block.content.to} />
 				{:else if block.type === 'column_list'}
 					<div class="columns">
 						{#each block.content as column}
@@ -65,6 +64,10 @@
 </div>
 
 <style>
+	.text-secondary {
+		color: var(--secondary-basic);
+		padding: 1em 1em;
+	}
 	img {
 		max-width: 100%;
 	}
