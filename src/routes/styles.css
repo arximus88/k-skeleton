@@ -33,6 +33,20 @@
 	--link-color: var(--primary-accent);
 }
 
+[data-theme='dark'] {
+	--body-bg-color: #191b1d;
+	--body-bg-shade: rgba(30, 30, 30, 0.36);
+	--card-bg: #1e1e1e;
+	--primary-basic: #ffffff;
+	--secondary-basic: rgba(255, 255, 255, 0.8);
+	--tertiary-basic: rgba(255, 255, 255, 0.64);
+	--caption-basic: rgba(255, 255, 255, 0.32);
+	--disabled-basic: rgba(255, 255, 255, 0.24);
+	--slight-basic: rgba(255, 255, 255, 0.12);
+	--primary-accent: #00a6ff;
+	--link-color: var(--primary-accent);
+}
+
 body {
 	min-height: 100svh;
 	margin: 0;

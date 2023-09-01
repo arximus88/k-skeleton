@@ -1,22 +1,14 @@
 <script>
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
+
 	let logo = '/images/logo-bo.png';
-	
 	let theme = { current: 'dark' };
 
-	
-	import { onMount } from 'svelte';
-
-	onMount(() => {
-		const savedTheme = localStorage.getItem('theme');
-		if (savedTheme) {
-			theme.current = savedTheme;
-		}
-		document.documentElement.setAttribute('data-theme', theme.current);
-	});
-
 	function handleThemeChange(e) {
-		
+		const newTheme = e.detail.theme;
+		theme.current = newTheme;
+		localStorage.setItem('theme', newTheme);
+		document.documentElement.setAttribute('data-theme', newTheme);
 	}
 </script>
 
@@ -29,7 +21,7 @@
 	</div>
 
 	<div class="corner">
-		<ThemeToggle on:click = {handleThemeChange} />
+		<ThemeToggle on:change={handleThemeChange} {theme} />
 	</div>
 </header>
 
