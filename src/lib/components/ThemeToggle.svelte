@@ -5,17 +5,17 @@
 
 	let selected = theme.current;
 	const dispatch = createEventDispatcher();
-	let colorImage = '#1E1E1E';
-	let firstClassDropdownMenu = 'dropdown-list',
-		firstClassDropdownButton = 'dropdown-button',
-		classDropdownMenu = '',
-		clasDropdownButton = '';
 
-	let isOpen = false;
 	let isSystemTheme = false;
 	let isDarkTheme = false;
-	let sourceImage = `icons/sun.svg`;
 
+	let selectedImage = '';
+	let showOptions = false;
+	let options = [
+		{ label: 'Dark Theme', image: 'icons/moon.svg', value: 'dark' },
+		{ label: 'Light Theme', image: 'icons/sun.svg', value: 'light' },
+		{ label: 'System', image: 'icons/lightbulb.svg', value: 'default' }
+	];
 	onMount(() => {
 		const savedTheme = localStorage.getItem('theme');
 		isSystemTheme = localStorage.getItem('useSystemTheme');
@@ -23,194 +23,140 @@
 			if (savedTheme) {
 				theme.current = savedTheme;
 			}
-			selected = theme.current;
+			selected = isSystemTheme? 'default' :theme.current;
+			handleSelect(searchElementOptions(selected));
 			dispatchSelectedTheme(selected);
-			selectedColorClassDropdown();
-			selectedImageButton(selected);
 		} catch {
 			console.log(error);
 		}
-		detectTheme(); // Визначаємо тему при завантаженні
+		detectTheme(); // Determine the theme when uploading
 		window.matchMedia('(prefers-color-scheme: dark)').addEventListener(detectTheme);
 	});
+
+	const searchElementOptions = (selectedTheme) => {
+		return options.find((item) => item.value === selectedTheme);
+	};
 
 	const detectTheme = () => {
 		const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 		isDarkTheme = prefersDark;
 	};
 
-	const toggleDropdown = () => {
-		isOpen = !isOpen;
-	};
-
-	const closeDropdown = () => {
-		isOpen = false;
-	};
-
-	const selectOption = (event) => {
-		selected = event.target.id;
-		localStorage.setItem('useSystemTheme', selected === 'default' ? true : false);
-		isSystemTheme = localStorage.getItem('useSystemTheme');
-		selectedImageButton(selected);
-		selectedColorClassDropdown();
-		dispatchSelectedTheme(selected);
-		closeDropdown();
-	};
-
-	const selectedColorClassDropdown = () => {
-		if (selected === 'dark') {
-			colorImage = 'white';
-			classDropdownMenu = firstClassDropdownMenu + ' dropdown-dark';
-			clasDropdownButton = firstClassDropdownButton + ' button-dark';
-		} else if (selected === 'light') {
-			colorImage = '#1E1E1E';
-			classDropdownMenu = firstClassDropdownMenu + ' dropdown-light';
-			clasDropdownButton = firstClassDropdownButton + ' button-light';
-		} else {
-			getComputerStyleColor();
+	const checkDefaultTheme = () => {
+		isSystemTheme = selected === 'default' ? true : false;
+		localStorage.setItem('useSystemTheme', isSystemTheme);
+		if (isSystemTheme) {
+			selected = isDarkTheme ? 'dark' : 'light';
 		}
-	};
-
-	const getComputerStyleColor = () => {
-		if (isDarkTheme) {
-			colorImage = 'white';
-			classDropdownMenu = firstClassDropdownMenu + ' dropdown-dark';
-			clasDropdownButton = firstClassDropdownButton + ' button-dark';
-			selected = 'dark';
-		} else {
-			colorImage = '#1E1E1E';
-			classDropdownMenu = firstClassDropdownMenu + ' dropdown-light';
-			clasDropdownButton = firstClassDropdownButton + ' button-light';
-			selected = 'light';
-		}
-	};
-
-	const selectedImageButton = (selectedThemeImage) => {
-		if (selectedThemeImage === 'dark') {
-			sourceImage = `icons/moon.svg`;
-		} else if (selectedThemeImage === 'light') {
-			sourceImage = `icons/sun-inv.svg`;
-		} else if (isSystemTheme) {
-			if (isDarkTheme) {
-				sourceImage = `icons/lightbulb.svg`;
-			} else {
-				sourceImage = `icons/lightbulb-inv.svg`;
-			}
-		} 
 	};
 
 	const dispatchSelectedTheme = (selected) => {
 		dispatch('change', { theme: selected });
 	};
+
+	function toggleOptions() {
+		showOptions = !showOptions;
+	}
+
+	function handleSelect(option) {
+		selectedImage = option.image;
+		selected = option.value;
+		checkDefaultTheme();
+		showOptions = false;
+		dispatchSelectedTheme(selected);
+	}
 </script>
 
-<div class="dropdown">
-	<button class={clasDropdownButton} on:click={toggleDropdown}>
-		<img src={sourceImage} alt="Icon theme" />
-	</button>
-	<ul
-		class={classDropdownMenu}
-		style="display: {isOpen ? 'block' : 'none'};"
-		on:click={selectOption}
-	>
-		<li class="dropdown-element" id="dark">
-			<img
-				src="icons/moon.svg"
-				alt="Dark icon"
-				style="display: {selected === 'dark' ? 'block' : 'none'};"
-			/>
-			<img
-				src="icons/moon-inv.svg"
-				alt="Dark icon"
-				style="display: {selected === 'dark' ? 'none' : 'block'};"
-			/>
-			Dark theme
-		</li>
-		<li class="dropdown-element" id="light">
-			<img
-				src="icons/sun.svg"
-				alt="Light icon"
-				style="display: {selected === 'dark' ? 'block' : 'none'};"
-			/>
-			<img
-				src="icons/sun-inv.svg"
-				alt="Light icon"
-				style="display: {selected === 'dark' ? 'none' : 'block'};"
-			/>
-			Light theme
-		</li>
-		<li class="dropdown-element" id="default">
-			<img
-				src="icons/lightbulb.svg"
-				alt="System icon"
-				style="display: {selected === 'dark' ? 'block' : 'none'};"
-			/>
-			<img
-				src="icons/lightbulb-inv.svg"
-				alt="Dark icon"
-				style="display: {selected === 'dark' ? 'none' : 'block'};"
-			/>
-			System
-		</li>
-	</ul>
+<div class="custom-select">
+	<div class="select-container">
+		<div
+			class="select-selected {selected === 'dark' ? '' : 'toggle-color'}"
+			on:click={toggleOptions}
+		>
+			<img src={selectedImage} alt="" />
+			<div class="select-arrow" />
+		</div>
+		<div
+			class="select-items {selected === 'dark' ? '' : 'toggle-color'}"
+			style="display: {showOptions ? 'block' : 'none'}"
+		>
+			{#each options as option}
+				<div on:click={() => handleSelect(option)}>
+					<img src={option.image} alt="" />
+					{option.label}
+				</div>
+			{/each}
+		</div>
+	</div>
 </div>
 
 <style>
-	.dropdown {
+	.custom-select {
 		position: relative;
-		display: flex;
+		margin-right: 64px;
 	}
 
-	.dropdown-button {
+	.select-container {
+		position: relative;
+	}
+
+	.select-selected {
 		display: inline-flex;
-		padding: 0.5rem 0.75rem;
+		padding: 0.36rem 0.5rem;
 		align-items: center;
 		gap: 0.75rem;
 		border-radius: 3.125rem;
-		border: 2px solid var(--slight-basic, rgba(255, 255, 255, 0.12));
-		background-color: #1e1e1e;
+		border: 2px solid var(----slight-basic, rgba(255, 255, 255, 0.12));
+		background: #1e1e1e;
 		cursor: pointer;
+		color: #ffffffcc;
 	}
 
-	.button-light {
-		background-color: white;
+	.select-selected img {
+		margin-right: 10px;
+		width: 20px;
+		height: 20px;
 	}
 
-	.button-dark {
-		background-color: #1e1e1e;
+	.select-arrow {
+		width: 0;
+		height: 0;
+		border-left: 6px solid transparent;
+		border-right: 6px solid transparent;
+		border-top: 6px solid #ccc;
 	}
-	li {
+
+	.select-items {
 		display: flex;
+		width: 11.75rem;
 		padding: 0.5rem;
-		width: 10rem;
-		align-items: center;
-		margin: 3px;
-		justify-content: space-evenly;
-		cursor: pointer;
-	}
-
-	.dropdown-list {
-		display: flex;
-		align-self: center;
-		justify-self: center;
+		flex-direction: column;
+		align-items: flex-start;
 		position: absolute;
-		top: 100%;
-		right: 30px;
-		background-color: #fff;
-		border: 1px solid #ccc;
-		padding: 0.5rem;
-		list-style: none;
-		color: black;
+		margin-top: 15px;
+		right: 0px;
+		min-width: 200px;
 		border-radius: 0.75rem;
-		border: 2px solid var(--slight-basic, rgba(255, 255, 255, 0.12));
+		border: 2px solid var(----slight-basic, rgba(255, 255, 255, 0.12));
+		background: #1e1e1e;
 		box-shadow: 0px 0px 24px 0px rgba(255, 255, 255, 0.12);
+		z-index: 1;
 	}
-	.dropdown-light {
-		background-color: #fff;
-		color: black;
+
+	.select-items div {
+		display: inline-flex;
+		padding: 0.625rem;
+		align-items: center;
+		gap: 0.625rem;
+		cursor: pointer;
+		color: #ffffffcc;
 	}
-	.dropdown-dark {
-		background-color: #1e1e1e;
-		color: white;
+
+	.select-items div:last-child {
+		border-bottom: none;
+	}
+
+	.toggle-color {
+		filter: invert(1);
 	}
 </style>
