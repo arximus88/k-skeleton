@@ -1,9 +1,14 @@
 <script>
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
-
+	import { onMount } from 'svelte';
+	
 	let logo = '/images/logo-bo.png';
 	let theme = { current: 'dark' };
 
+	onMount(() => {
+		document.documentElement.setAttribute('data-theme', theme.current);
+	});
+	
 	function handleThemeChange(e) {
 		const newTheme = e.detail.theme;
 		theme.current = newTheme;

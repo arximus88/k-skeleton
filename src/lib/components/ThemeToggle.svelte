@@ -17,14 +17,16 @@
 		{ label: 'System', image: 'icons/lightbulb.svg', value: 'default' }
 	];
 	onMount(() => {
+		
 		const savedTheme = localStorage.getItem('theme');
-		isSystemTheme = localStorage.getItem('useSystemTheme');
+		isSystemTheme = JSON.parse(localStorage.getItem('useSystemTheme'));
 		try {
 			if (savedTheme) {
 				theme.current = savedTheme;
 			}
-			selected = isSystemTheme? 'default' :theme.current;
-			handleSelect(searchElementOptions(selected));
+			selected = isSystemTheme ? 'default' : theme.current;
+			let selectedElementCollection = searchElementOptions(selected);
+			handleSelect(selectedElementCollection);
 			dispatchSelectedTheme(selected);
 		} catch {
 			console.log(error);
