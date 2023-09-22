@@ -16,25 +16,20 @@
 		{ label: 'Light Theme', image: 'icons/sun.svg', value: 'light' },
 		{ label: 'System', image: 'icons/lightbulb.svg', value: 'default' }
 	];
+
 	onMount(() => {
-		
-		const savedTheme = localStorage.getItem('theme');
 		isSystemTheme = JSON.parse(localStorage.getItem('useSystemTheme'));
 		try {
-			if (savedTheme) {
-				theme.current = savedTheme;
-			}
 			selected = isSystemTheme ? 'default' : theme.current;
 			let selectedElementCollection = searchElementOptions(selected);
 			handleSelect(selectedElementCollection);
 			dispatchSelectedTheme(selected);
 		} catch {
 			console.log(error);
-		}
-		detectTheme(); // Determine the theme when uploading
-		window.matchMedia('(prefers-color-scheme: dark)').addEventListener(detectTheme);
-	});
+		}	
+	})
 
+	
 	const searchElementOptions = (selectedTheme) => {
 		return options.find((item) => item.value === selectedTheme);
 	};
@@ -48,6 +43,7 @@
 		isSystemTheme = selected === 'default' ? true : false;
 		localStorage.setItem('useSystemTheme', isSystemTheme);
 		if (isSystemTheme) {
+			detectTheme();
 			selected = isDarkTheme ? 'dark' : 'light';
 		}
 	};
