@@ -18,6 +18,10 @@
 	];
 
 	onMount(() => {
+		const savedTheme = localStorage.getItem('theme');
+		if (savedTheme) {
+			theme.current = savedTheme;
+		}
 		isSystemTheme = JSON.parse(localStorage.getItem('useSystemTheme'));
 		try {
 			selected = isSystemTheme ? 'default' : theme.current;
