@@ -1,17 +1,25 @@
-export type Tags = 'sveltekit' | 'svelte'
+export type Tags = string
 
-export type Post = {
-	id: number
+export type Project = {
+	id: string
     title: string
-    year: string
+    year: number | string
 	slug: string
 	description: string
 	clientName: string
 	clientUrl: string
-    androidUrl: string
-    platforms: string
+    androidUrl?: string
+    iosUrl?: string
+    platforms: string[] | string
 	tags: Tags[]
     folder: string
     visible: boolean
 	disabled: boolean
+    key?: string
+    order?: number
+    url?: string
+    projectUrl?: string
+    sliderFrom?: number
+    sliderTo?: number
+    content?: any[]
 }

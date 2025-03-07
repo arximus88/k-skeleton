@@ -21,7 +21,6 @@ The first horse racing game of skill to live not only on the blockchain but in a
 
 
 
-
 # ZED RUN
 
 **Year:** 2020

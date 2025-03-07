@@ -3,7 +3,7 @@ import { error } from '@sveltejs/kit';
 /** @type {import('./$types').PageLoad} */
 export async function load({ fetch }) {
 	try {
-		const response = await fetch('api/posts');
+		const response = await fetch('api/projects');
 		const projects = await response.json();
 		return { projects };
 	} catch (err) {

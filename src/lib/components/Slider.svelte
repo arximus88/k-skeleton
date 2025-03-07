@@ -40,11 +40,17 @@
 	export { loadMyPageScripts };
 
 	onMount(async () => {
-		await loadMyPageScripts();
-		// You can now initialize the fotorama slider or execute any code that depends on the loaded scripts.
+		// Завантажуємо скрипти тільки якщо слайдер потрібно відображати
+		if (from > 0 && to > 0) {
+			await loadMyPageScripts();
+		}
 	});
+	
+	// Перевіряємо, чи потрібно відображати слайдер
+	const showSlider = from > 0 && to > 0 && from <= to;
 </script>
 
+{#if showSlider}
 <div class="project-slider">
 	<!-- Add images to <div class="fotorama"></div> -->
 	<div
@@ -62,6 +68,7 @@
 		{/each}
 	</div>
 </div>
+{/if}
 
 <style>
 </style>

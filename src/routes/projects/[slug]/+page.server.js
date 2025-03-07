@@ -4,15 +4,16 @@ import { json } from '@sveltejs/kit'
 /** @type {import('./$types').PageLoad} */
 export async function load({ params }) {
 	try {
-		 const post = await import(`../../../../personal/projects/${params.slug}.md`);
+		// Змінюємо шлях з personal/projects на src/content/projects
+		const post = await import(`../../../content/projects/${params.slug}.md`);
         
-		 console.log(post.metadata)
+		console.log(post.metadata)
 		return {
 			// content: json(post.default),
 			meta: post.metadata
 		}
 	} catch (e) {
-		throw error(404, e)
+		throw error(404, `Проект "${params.slug}" не знайдено`)
 	}
 }
 

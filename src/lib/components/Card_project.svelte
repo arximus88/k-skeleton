@@ -11,6 +11,7 @@
 	export let year = 1;
 	export let disabled = false;
 	export let visible = true;
+	export let key = '';
 
 	let tagsContainer;
 	let hasOverflowingTags = false;
@@ -37,7 +38,7 @@
 
 <div class="project {visible ? '' : 'display-none'}">
 	<div class="card slight-transition">
-		<a data-sveltekit-preload-data="off" href={disabled ? '#' : `/projects/${folder}`} class:disabled>
+		<a data-sveltekit-preload-data="off" href={disabled ? '#' : `/projects/${key || folder}`} class:disabled>
 			<picture class="card-image">
 				<source class="contain" srcset={`/images/projects-bg/${folder}.webp`} type="image/webp" />
 				<img class="contain" src={`/images/projects-bg/${folder}.jpg`} alt={title} />
