@@ -1,5 +1,6 @@
 <script>
 	import Icons from './Icons.svelte';
+	import { goto } from '$app/navigation';
 
 	export let size = 'default';
 	export let width = 'fit';
@@ -8,6 +9,7 @@
 	export let icon = '';
 	export let iconType = 'emoji'; // Default to emoji
 	export let projectUrl = '';
+	export let external = false; // Новий параметр для визначення типу навігації
 
 	let classes = '';
 
@@ -19,7 +21,13 @@
 
 	function handleClick() {
 		if (!disabled && projectUrl) {
-			window.open(projectUrl, '_blank');
+			if (external || projectUrl.startsWith('http')) {
+				// Зовнішнє посилання або явно вказано external=true
+				window.open(projectUrl, '_blank');
+			} else {
+				// Внутрішня навігація
+				goto(projectUrl);
+			}
 		}
 	}
 </script>
@@ -29,7 +37,7 @@
 		{#if iconType === 'emoji'}
 			<span class="icon">{icon}</span>
 		{:else}
-			<Icons name={icon} class="icon" />
+			<Icons name={icon} className="icon" />
 		{/if}
 	{/if}
 	<slot />

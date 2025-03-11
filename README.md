@@ -1,37 +1,54 @@
-# My K-Project: Personal Website
+# K-Skeleton: Personal Website
 
-Welcome to my K-Project, a personal website built with create-svelte. I've designed and developed this project to showcase my work and share my thoughts with the world.
+A personal website built with SvelteKit to showcase projects and publications.
 
-## I used Svelte Kit
+## Technologies
 
-If you want to create a similar project or explore my code, you can start by setting up a new Svelte project:
-
-- reate a new project in the current directory
-  `npm create svelte@latest`
-
-- or create a new project in a folder called my-app
-  `npm create svelte@latest my-app`
+- SvelteKit
+- TypeScript
+- Bun
+- NocoDB for data storage
 
 ## Local Development
 
-To start working on the project, first, clone the repository and install the dependencies with npm install (or pnpm install or yarn). Then, start a development server:
-`npm run dev`
+```bash
+# Install dependencies
+bun install
 
-### or start the server and open the app in a new browser tab
+# Start development server
+bun run dev
 
-`npm run dev -- --open`
-This will open a local development environment where you can make changes and see them in real-time.
+# Start with automatic browser opening
+bun run dev -- --open
+```
 
-## Building for Production
+## Production Build
 
-To create a production-ready version of the website:
-`npm run build`
-You can preview the production build with `npm run preview`.
+```bash
+# Build the project
+bun run build
 
-If you plan to deploy your app, you may need to install an adapter for your target environment.
+# Preview the build
+bun run preview
+```
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+## Deployment
 
-## About Me
+For deployment on VPS with Nginx, `svelte-adapter-bun` is used.
 
-I'm passionate about web development and love working with Svelte to create interactive, high-performance websites. If you have any questions or suggestions, feel free to open an issue or submit a pull request on this GitHub repository. Happy coding!
+```bash
+# Run on server
+bun ./build/index.js
+```
+
+## Project Structure
+
+- `src/` - source code
+  - `routes/` - routes and pages
+  - `lib/` - components and utilities
+- `static/` - static files
+- `build/` - compiled production code
+
+## License
+
+All rights reserved © Borys Kharchenko (but feel free to use the code for your own projects 🙃)

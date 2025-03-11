@@ -18,5 +18,5 @@
 		"src/routes/projects/posts/+server.js",
 		".svelte-kit/ambient.d.ts" // fix '$env/static/private' import lint error
 	],
-	"exclude": ["node_modules/*", "__sapper__/*", "public/*"]
+	"exclude": ["node_modules/*", "public/*"]
 }

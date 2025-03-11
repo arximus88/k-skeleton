@@ -25,6 +25,7 @@
 		<div class="action-line">
 			<Button
 				projectUrl="https://www.instagram.com/psy_koteiky/"
+				external={true}
 				size="default"
 				width="adaptive"
 				variant="primary">Follow on Instagram</Button

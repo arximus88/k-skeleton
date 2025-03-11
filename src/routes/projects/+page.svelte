@@ -4,9 +4,11 @@
 	import type { Project } from '$lib/types';
 
 	export let data: { projects: { list: Project[] } };
-	
+
 	// Отримуємо проєкти з даних, завантажених через API
-	let projects = data.projects?.list ? data.projects.list.sort((a, b) => (a.order ?? 0) - (b.order ?? 0)) : []; // сортування проєктів за порядком
+	let projects = data.projects?.list
+		? data.projects.list.sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+		: []; // сортування проєктів за порядком
 </script>
 
 <svelte:head>

@@ -63,15 +63,15 @@
 
 <div class="misc-container">
 	<h1 class="title">Різне</h1>
-	
+
 	<section class="links-section">
 		<h2>Цікаві посилання</h2>
 		<div class="links-grid">
 			{#each links as link}
-				<a 
-					href={link.url} 
-					target="_blank" 
-					rel="noopener noreferrer" 
+				<a
+					href={link.url}
+					target="_blank"
+					rel="noopener noreferrer"
 					class="link-card"
 					class:fade-in={mounted}
 				>
@@ -118,7 +118,8 @@
 		text-align: center;
 	}
 
-	.links-section, .credits-section {
+	.links-section,
+	.credits-section {
 		margin-bottom: 3rem;
 	}
 
@@ -223,7 +224,8 @@
 	}
 
 	@media (max-width: 768px) {
-		.links-grid, .credits-list {
+		.links-grid,
+		.credits-list {
 			grid-template-columns: 1fr;
 		}
 	}

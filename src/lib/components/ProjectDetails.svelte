@@ -78,7 +78,7 @@
 			<Tag {tag} />
 		{/each}
 	</div>
-	<Button {projectUrl} size="default" width="block" variant="primary">Visit Website</Button>
+	<Button {projectUrl} external={true} size="default" width="block" variant="primary">Visit Website</Button>
 </aside>
 
 <style>

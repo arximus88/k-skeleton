@@ -10,29 +10,37 @@
 <svelte:window bind:innerWidth />
 <div class="home-block">
 	<h1 class="hero-text">Borys Kharchenko</h1>
-	<div class="hero-subtext">Adjusting | Digital | Experience</div>
+	<div class="hero-subtext">Product Designer</div>
 	<section>
 		<div class="greeting-block">
 			<p class="h3 text-primary">Hey,</p>
 			<p class="text-secondary">
-				My name is Borys, a UI/UX designer with over 11 years of experience in the industry.
+				I'm Borys, a strategic Product Designer with 10+ years of experience bridging user needs and business objectives across diverse domains.
 			</p>
 			<p class="text-secondary">
-				I bring a wealth of knowledge from working with companies such as Chegg and Upwork, and I
-				have recently spent 4+ years as a Senior Product Designer at Virtually Human Studios, where
-				I led the design process for ZED RUN their flagship product and Human Park game.
+				My expertise spans multiple industries including Web3, B2C platforms, healthcare, and emerging AI applications. I've collaborated with clients from the USA (Chegg, Upwork), Australia (Virtually Human), and Ukraine (Medics.ua).
 			</p>
 			<p class="text-secondary">
-				With my skills and expertise, I can help bring your digital vision to life. Check out my
-				LinkedIn page to see some of my previous work and let's create something awesome together!
+				As the founding designer for ZED RUN and senior designer for Human Park at Virtually Human Studios, I've led projects that generated 9,500+ unique digital assets and built design systems that scaled with rapidly growing products.
+			</p>
+			<p class="text-secondary">
+				I thrive in dynamic environments where I can apply my holistic approach to product design—blending user research, strategic thinking, and visual craft to create experiences that resonate with users and drive business results.
 			</p>
 		</div>
 		<div class="action-line">
 			<Button
 				projectUrl="https://www.linkedin.com/in/boryskharchenko/"
+				external={true}
 				size="default"
 				width="adaptive"
-				variant="primary">Connect me on Linkedin</Button
+				variant="primary">Let's Connect on LinkedIn</Button
+			>
+			<Button
+				projectUrl="/projects"
+				external={false}
+				size="default"
+				width="adaptive"
+				variant="outline">View My Projects</Button
 			>
 		</div>
 	</section>
@@ -48,6 +56,7 @@
 
 	.action-line {
 		padding-top: 32px;
+		gap: 16px;
 		display: flex;
 		justify-content: center;
 	}
