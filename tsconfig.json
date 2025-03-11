@@ -1,34 +1,23 @@
 {
 	"extends": "./.svelte-kit/tsconfig.json",
 	"compilerOptions": {
-		"moduleResolution": "node",
-		"noImplicitAny": false,
-		"module": "es2020",
-		"lib": ["es2020", "dom"],
-		"target": "es2020",
-		"strict": true,
+		"allowJs": true,
+		"checkJs": true,
 		"esModuleInterop": true,
-		"allowSyntheticDefaultImports": true,
-		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
 		"resolveJsonModule": true,
+		"skipLibCheck": true,
 		"sourceMap": true,
-		"inlineSources": true,
-		"types": ["svelte"],
-		"paths": {
-			"$projects": ["./personal/projects"],
-			"$lib": ["./src/lib"],
-			"$lib/*": ["./src/lib/*"]
-		}
+		"strict": true
 	},
 	"include": [
 		"src/**/*.ts",
 		"src/**/*.svelte",
 		"src/service-worker.js",
 		"src/routes/projects/[slug]/+page.server.js",
-		"src/routes/projects/posts/+server.js",
 		"src/routes/projects/posts/+server.js"
 	],
-	"exclude": ["node_modules/*", "__sapper__/*", "public/*", "/.svelte-kit/types/src/*"]
+	"exclude": ["node_modules/*", "__sapper__/*", "public/*"]
 }
 
 // "compilerOptions": {

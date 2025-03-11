@@ -1,7 +1,13 @@
-<script>
+<script lang="ts">
 	import { createEventDispatcher, onMount } from 'svelte';
 
-	export let theme;
+	type Option = {
+		label: string;
+		image: string;
+		value: string;
+	};
+
+	export let theme: { current: string };
 
 	let selected = theme.current;
 	const dispatch = createEventDispatcher();
@@ -11,30 +17,32 @@
 
 	let selectedImage = '';
 	let showOptions = false;
-	let options = [
-		{ label: 'Dark Theme', image: 'icons/moon.svg', value: 'dark' },
-		{ label: 'Light Theme', image: 'icons/sun.svg', value: 'light' },
-		{ label: 'System', image: 'icons/lightbulb.svg', value: 'default' }
+	let options: Option[] = [
+		{ label: 'Dark Theme', image: '/icons/moon.svg', value: 'dark' },
+		{ label: 'Light Theme', image: '/icons/sun.svg', value: 'light' },
+		{ label: 'System', image: '/icons/lightbulb.svg', value: 'default' }
 	];
 
 	onMount(() => {
-		const savedTheme = localStorage.getItem('theme');
+		const savedTheme = localStorage.getItem('theme') || '';
 		if (savedTheme) {
 			theme.current = savedTheme;
 		}
-		isSystemTheme = JSON.parse(localStorage.getItem('useSystemTheme'));
+		isSystemTheme = JSON.parse(localStorage.getItem('useSystemTheme') || 'false');
 		try {
 			selected = isSystemTheme ? 'default' : theme.current;
 			let selectedElementCollection = searchElementOptions(selected);
-			handleSelect(selectedElementCollection);
-			dispatchSelectedTheme(selected);
-		} catch {
-			console.log(error);
+			if (selectedElementCollection) {
+				handleSelect(selectedElementCollection);
+				dispatchSelectedTheme(selected);
+			}
+		} catch (err) {
+			console.log(err);
 		}	
 	})
 
 	
-	const searchElementOptions = (selectedTheme) => {
+	const searchElementOptions = (selectedTheme: string): Option | undefined => {
 		return options.find((item) => item.value === selectedTheme);
 	};
 
@@ -45,14 +53,14 @@
 
 	const checkDefaultTheme = () => {
 		isSystemTheme = selected === 'default' ? true : false;
-		localStorage.setItem('useSystemTheme', isSystemTheme);
+		localStorage.setItem('useSystemTheme', isSystemTheme.toString());
 		if (isSystemTheme) {
 			detectTheme();
 			selected = isDarkTheme ? 'dark' : 'light';
 		}
 	};
 
-	const dispatchSelectedTheme = (selected) => {
+	const dispatchSelectedTheme = (selected: string) => {
 		dispatch('change', { theme: selected });
 	};
 
@@ -60,12 +68,27 @@
 		showOptions = !showOptions;
 	}
 
-	function handleSelect(option) {
+	function handleSelect(option: Option) {
 		selectedImage = option.image;
 		selected = option.value;
 		checkDefaultTheme();
 		showOptions = false;
 		dispatchSelectedTheme(selected);
+	}
+
+	function handleKeyDown(event: KeyboardEvent) {
+		if (event.key === 'Enter' || event.key === ' ') {
+			toggleOptions();
+		}
+		if (event.key === 'Escape' && showOptions) {
+			showOptions = false;
+		}
+	}
+
+	function handleOptionKeyDown(event: KeyboardEvent, option: Option) {
+		if (event.key === 'Enter' || event.key === ' ') {
+			handleSelect(option);
+		}
 	}
 </script>
 
@@ -74,16 +97,30 @@
 		<div
 			class="select-selected {selected === 'dark' ? '' : 'toggle-color'}"
 			on:click={toggleOptions}
+			on:keydown={handleKeyDown}
+			role="button"
+			tabindex="0"
+			aria-haspopup="listbox"
+			aria-expanded={showOptions}
+			aria-label="Select theme"
 		>
 			<img src={selectedImage} alt="" />
-			<div class="select-arrow" />
+			<div class="select-arrow"></div>
 		</div>
 		<div
 			class="select-items {selected === 'dark' ? '' : 'toggle-color'}"
 			style="display: {showOptions ? 'block' : 'none'}"
+			role="listbox"
+			aria-label="Theme options"
 		>
 			{#each options as option}
-				<div on:click={() => handleSelect(option)}>
+				<div 
+					on:click={() => handleSelect(option)}
+					on:keydown={(e) => handleOptionKeyDown(e, option)}
+					role="option"
+					tabindex="0"
+					aria-selected={option.value === selected}
+				>
 					<img src={option.image} alt="" />
 					{option.label}
 				</div>

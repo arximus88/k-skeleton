@@ -1,3 +1,4 @@
+<!-- Personal quote component, displays a quote with a background color and a randomized personal avatar -->
 <script>
 	import PersonalAvatar from './PersonalAvatar.svelte';
 	export let bg = '#FFAC8A';

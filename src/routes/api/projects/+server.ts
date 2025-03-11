@@ -1,29 +1,44 @@
 import { json } from '@sveltejs/kit'
 import type { Project } from '$lib/types'
+import { env } from '$env/dynamic/private'
 
 async function getProjects() {
-	const projects: Project[] = []
+    try {
+        const baseUrl = env.NOCODB_URL;
+        const apiToken = env.NOCODB_API_KEY;
+        const tableId = 'mok8y9m47n2m0pm';
 
-    const paths = import.meta.glob('/src/content/projects/*.md', { eager: true }) // отримуємо всі файли в папці projects
+        if (!baseUrl || !apiToken) {
+            throw new Error('NOCODB_URL та NOCODB_API_KEY мають бути встановлені в .env файлі');
+        }
 
-	for (const path in paths) {
-		const file = paths[path]
-        const slug = path.split('/').at(-1)?.replace('.md', '')
-        console.log({meta: file.metadata})
-		if (file && typeof file === 'object' && 'metadata' in file && slug) {
-			const metadata = file.metadata as Omit<Project, 'slug'> // отримуємо метадані з файлу
-			const project = { ...metadata, slug } satisfies Project // створюємо новий об'єкт проекту з метаданими та slug
-			console.log(project)
-			if (!project.disabled && project.visible) {
-				projects.push(project) // додаємо проект до масиву, якщо він не відключений і видимий
-			}
-		}
-	}
+        const apiUrl = `${baseUrl}/api/v2/tables/${tableId}/records`;
+        const response = await fetch(apiUrl, {
+            method: 'GET',
+            headers: {
+                'xc-token': apiToken,
+                'Accept': 'application/json'
+            }
+        });
 
-	return projects
+        if (!response.ok) {
+            throw new Error(`HTTP помилка! статус: ${response.status}`);
+        }
+
+        const data = await response.json();
+        
+        // Фільтруємо проекти, щоб не показувати проекти з live === "disabled"
+        return {
+            list: data.list
+                .filter((project: Project) => project.live !== "disabled")
+        };
+    } catch (error) {
+        console.error('Помилка при отриманні даних з NocoDB:', error);
+        return { list: [] };
+    }
 }
 
 export async function GET() {
 	const projects = await getProjects()
-	return json(projects) // повертаємо дані в JSON
+	return json(projects)
 }

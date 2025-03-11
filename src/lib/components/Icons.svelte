@@ -1,3 +1,4 @@
+<!-- Icons component, displays an icon from the icons folder and allows for customizing the size and color -->
 <script lang="ts">
 	export let name = '';
 	export let size = 24;
@@ -7,7 +8,7 @@
 <span
 	class="icon {className}"
 	style="width: {size}px; height: {size}px; --icon-url: url('/icons/{name}.svg');"
-/>
+></span>
 
 <style>
 	.icon {

@@ -1,3 +1,12 @@
+<!-- Slider component, displays a slider with a set of images from the project folder -->
+<!--
+take from and to from the project content block
+ ```json
+
+{"from": 1, "to": 13}
+
+``` 
+-->
 <script>
 	import { onMount } from 'svelte';
 	export let folder = '';

@@ -1,4 +1,5 @@
-<script>
+<!-- Card project component, displays a project card with a title, description, client name and tags, on click it opens(navigates) the project page -->
+<script lang="ts">
 	import Tag from '$lib/components/Tag.svelte';
 	import { dragScroll } from '$lib/dragScroll';
 	import { onMount } from 'svelte';
@@ -9,16 +10,14 @@
 	export let tags = ['', '', ''];
 	export let folder = '';
 	export let year = 1;
-	export let disabled = false;
-	export let visible = true;
-	export let key = '';
+	export let live: 'live' | 'inactive' | 'disabled' = 'live';
 
-	let tagsContainer;
+	let tagsContainer: HTMLElement;
 	let hasOverflowingTags = false;
+	let imageError = false;
 
 	onMount(() => {
 		checkOverflowingTags();
-
 		window.addEventListener('resize', checkOverflowingTags);
 	});
 
@@ -34,15 +33,37 @@
 			}
 		}
 	}
+
+	function handleImageError() {
+		imageError = true;
+	}
 </script>
 
-<div class="project {visible ? '' : 'display-none'}">
+<div class="project">
 	<div class="card slight-transition">
-		<a data-sveltekit-preload-data="off" href={disabled ? '#' : `/projects/${key || folder}`} class:disabled>
-			<picture class="card-image">
-				<source class="contain" srcset={`/images/projects-bg/${folder}.webp`} type="image/webp" />
-				<img class="contain" src={`/images/projects-bg/${folder}.jpg`} alt={title} />
-			</picture>
+		<a
+			data-sveltekit-preload-data="off"
+			href={live === 'inactive' ? '#' : `/projects/${folder}`}
+			class:inactive={live === 'inactive'}
+		>
+
+			<div class="card-image" class:fallback-bg={imageError}>
+				{#if !imageError}
+					<picture>
+						<source
+							class="contain"
+							srcset={`/images/projects-bg/${folder}.webp`}
+							type="image/webp"
+						/>
+						<img
+							class="contain"
+							src={`/images/projects-bg/${folder}.jpg`}
+							alt={title}
+							on:error={handleImageError}
+						/>
+					</picture>
+				{/if}
+			</div>
 			<div class="h4 pseudo-title text-primary fast-transition">{title}</div>
 			<h4 class="project-title text-primary fast-transition">{title}</h4>
 			<div class="project-description small-text text-secondary fast-transition">
@@ -51,14 +72,14 @@
 			<div class="lastline fast-transition">
 				<div class="year caption">{year}</div>
 				<div class="small-text text-tertiary butt">
-					{disabled ? `TBD` : `View Case`}
+					{live === 'inactive' ? `Coming Soon` : live === 'disabled' ? `TBD` : `View Case`}
 				</div>
 			</div>
 		</a>
 	</div>
 	<div class="subline">
 		<div class="client">
-			<div class="avatar" />
+			<div class="avatar"></div> 
 			<p class="client-title caption">{clientName}</p>
 		</div>
 		<div
@@ -108,8 +129,9 @@
 		box-shadow: 0px 0px 1px var(--card-bg), 0px 0px 12px var(--tertiary-basic);
 	} */
 
-	.disabled {
+	.inactive {
 		pointer-events: none;
+		opacity: 0.7;
 	}
 
 	.card a:link {
@@ -124,6 +146,10 @@
 		right: 0;
 		bottom: 0;
 		left: 0;
+	}
+
+	.fallback-bg {
+		background: linear-gradient(135deg, var(--card-bg) 0%, var(--tertiary-basic) 100%);
 	}
 
 	.card-image::after {
@@ -150,7 +176,7 @@
 		object-fit: cover;
 	}
 
-	.disabled img {
+	.inactive img {
 		filter: grayscale(100%);
 	}
 	.pseudo-title {

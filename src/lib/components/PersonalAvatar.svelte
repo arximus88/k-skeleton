@@ -1,3 +1,5 @@
+<!-- Personal avatar component, displays a personal avatar with a background color -->
+ 
 <script>
 	export let bg = '#FFAC8A';
 	export let avatar;

@@ -1,3 +1,4 @@
+<!-- Navbar component, displays a top level navigation bar -->
 <script>
 	import { page } from '$app/stores';
 	import Icon from '$lib/components/Icons.svelte';
@@ -19,7 +20,7 @@
 		</li>
 	</ul>
 </nav>
-<div class="bottom-shade" />
+<div class="bottom-shade"></div>
 
 <style>
 	nav {

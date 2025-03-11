@@ -7,19 +7,15 @@ export type Project = {
 	slug: string
 	description: string
 	clientName: string
-	clientUrl: string
-    androidUrl?: string
-    iosUrl?: string
+	url_client: string
+    url_android?: string
+    url_ios?: string
     platforms: string[] | string
 	tags: Tags[]
     folder: string
-    visible: boolean
-	disabled: boolean
-    key?: string
+    live: "live" | "inactive" | "disabled"
     order?: number
-    url?: string
-    projectUrl?: string
-    sliderFrom?: number
-    sliderTo?: number
+    url_notion?: string
+    url_project?: string
     content?: any[]
 }

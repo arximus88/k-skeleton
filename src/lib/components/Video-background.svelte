@@ -1,3 +1,5 @@
+<!-- Video background container -->
+
 <div class="bg-container">
 	<video class="bg-video" autoplay muted loop poster="/images/bg-img.webp" defer loading="lazy">
 		<source src="/media/bg-vid-dark_1.webm" type="video/webm" />

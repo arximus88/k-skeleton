@@ -1,3 +1,4 @@
+<!-- Project details container, component displays client name, year, platforms, tags and a button to visit the project website on projects/[slug] page -->
 <script>
 	import Tag from '$lib/components/Tag.svelte';
 	import Icons from './Icons.svelte';
