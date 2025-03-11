@@ -7,14 +7,25 @@
 	export let title = '';
 	export let description = '';
 	export let clientName = '';
-	export let tags = ['', '', ''];
+	export let tags: string | string[] = ''; // масив тегів
 	export let folder = '';
 	export let year = 1;
 	export let live: 'live' | 'inactive' | 'disabled' = 'live';
 
-	let tagsContainer: HTMLElement;
+	let tagsContainer: HTMLElement; // контейнер для тегів
 	let hasOverflowingTags = false;
 	let imageError = false;
+
+	// Функція для обробки рядка з комами в масив
+	function processTagsString(input: string | string[]): string[] {
+		if (typeof input === 'string') {
+			return input.split(/[,\s]+/).filter(tag => tag.trim() !== '');
+		}
+		return Array.isArray(input) ? input : [];
+	}
+
+	// Обробляємо теги
+	const processedTags = processTagsString(tags);
 
 	onMount(() => {
 		checkOverflowingTags();
@@ -88,7 +99,7 @@
 			class:has-overflowing-tags={hasOverflowingTags}
 			use:dragScroll
 		>
-			{#each tags as tag}
+			{#each processedTags as tag}
 				<Tag {tag} />
 			{/each}
 		</div>

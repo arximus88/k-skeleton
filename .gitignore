@@ -11,3 +11,5 @@ vite.config.ts.timestamp-*
 
 # Cursor
 .cursorignore
+/.cursor
+.cursor/rules

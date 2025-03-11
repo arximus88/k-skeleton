@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { createEventDispatcher, onMount } from 'svelte';
+	import { onMount } from 'svelte';
 
 	type Option = {
 		label: string;
@@ -8,9 +8,14 @@
 	};
 
 	export let theme: { current: string };
+	export const change = (themeValue: string) => {
+		return new CustomEvent('change', { 
+			detail: { theme: themeValue },
+			bubbles: true 
+		});
+	};
 
 	let selected = theme.current;
-	const dispatch = createEventDispatcher();
 
 	let isSystemTheme = false;
 	let isDarkTheme = false;
@@ -61,7 +66,10 @@
 	};
 
 	const dispatchSelectedTheme = (selected: string) => {
-		dispatch('change', { theme: selected });
+		const element = document.querySelector('.custom-select');
+		if (element) {
+			element.dispatchEvent(change(selected));
+		}
 	};
 
 	function toggleOptions() {

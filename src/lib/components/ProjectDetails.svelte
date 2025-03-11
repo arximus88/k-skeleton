@@ -1,5 +1,5 @@
 <!-- Project details container, component displays client name, year, platforms, tags and a button to visit the project website on projects/[slug] page -->
-<script>
+<script lang="ts">
 	import Tag from '$lib/components/Tag.svelte';
 	import Icons from './Icons.svelte';
 	import { dragScroll } from '$lib/dragScroll';
@@ -9,12 +9,24 @@
 	export let clientName = '';
 	export let clientUrl = '';
 	export let year = 1;
-	export let platforms = ['', '', ''];
-	export let tags = ['', '', ''];
+	export let platforms: string[] | string = ['', '', ''];
+	export let tags: string[] | string = ['', '', ''];
 	export let projectUrl = '';
 
-	let tagsContainer;
+	let tagsContainer: HTMLElement;
 	let hasOverflowingTags = false;
+
+	// Функція для обробки рядка з комами в масив
+	function processCommaSeparated(input: string | string[]): string[] {
+		if (typeof input === 'string') {
+			return input.split(/[,\s]+/).filter(item => item.trim() !== '');
+		}
+		return Array.isArray(input) ? input : [];
+	}
+
+	// Обробляємо платформи і теги
+	const processedPlatforms = processCommaSeparated(platforms);
+	const processedTags = processCommaSeparated(tags);
 
 	onMount(() => {
 		checkOverflowingTags();
@@ -50,8 +62,8 @@
 		<div class="detailsLine">
 			<span class="text-caption">Platform</span>
 			<div class="platforms">
-				{#each platforms as platform}
-					<Icons name={platform} size="16" />
+				{#each processedPlatforms as platform}
+					<Icons name={platform} size={16} />
 				{/each}
 			</div>
 		</div>
@@ -62,7 +74,7 @@
 		class:has-overflowing-tags={hasOverflowingTags}
 		use:dragScroll
 	>
-		{#each tags as tag}
+		{#each processedTags as tag}
 			<Tag {tag} />
 		{/each}
 	</div>

@@ -1,8 +1,25 @@
 <script lang="ts">
-	export let tag = '';
+	export let tag: string | string[] = '';
+
+	// Обробляємо тег, якщо він переданий як масив символів або рядок з комами
+	function processTag(input: string | string[]): string {
+		// Якщо це масив символів, об'єднуємо їх
+		if (Array.isArray(input) && input.every(p => p.length === 1)) {
+			return input.join('');
+		}
+		
+		// Якщо це рядок з комами, беремо перший елемент
+		if (typeof input === 'string' && input.includes(',')) {
+			return input.split(',')[0];
+		}
+		
+		return String(input);
+	}
+
+	const processedTag = processTag(tag);
 </script>
 
-<div class="tag tag-text fast-transition">{tag}</div>
+<div class="tag tag-text fast-transition">{processedTag}</div>
 
 <style>
 	.tag-text {
