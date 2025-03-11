@@ -4,7 +4,7 @@
 	export let data;
 	
 	// Отримуємо проєкти з даних, завантажених через API
-	let projects = data.projects ? data.projects.sort((a, b) => a.order - b.order) : [];
+	let projects = data.projects ? data.projects.sort((a, b) => a.order - b.order) : []; // сортування проєктів за порядком
 	const { error } = data;
 </script>
 

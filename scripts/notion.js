@@ -1,12 +1,7 @@
 import { Client } from '@notionhq/client';
-import { writeFile } from 'fs/promises';
 import { loadEnv } from 'vite';
-import fs from 'fs'; // Node.js file system module
-import path from 'path'; // Node.js path module
-import { waitForDebugger } from 'inspector';
-let env = loadEnv('mock', process.cwd(), '');
 
-// console.log(env.NOTION_SECRET)
+let env = loadEnv('mock', process.cwd(), '');
 
 // Get the projects from Notion and transform the data
 export async function getProjects() {
@@ -47,8 +42,8 @@ export async function getProjects() {
 			}
 		}
 
-		let html = '';
-		if (children && children.forEach)
+		if (children && children.forEach) {
+			let items, column_items, columns, columns_items;
 			for (const child of children) {
 				switch (child.type) {
 					case 'paragraph':
@@ -73,15 +68,15 @@ export async function getProjects() {
 						}
 						break;
 
-          case 'column':
-            let items = await notion.blocks.children.list({ block_id: child.id });
-            let column_items = await serializeBlockChildren(items.results);
-            array_of_blocks.push(new Block('column', column_items));
+					case 'column':
+						items = await notion.blocks.children.list({ block_id: child.id });
+						column_items = await serializeBlockChildren(items.results);
+						array_of_blocks.push(new Block('column', column_items));
 						break;
 
 					case 'column_list':
-						let columns = await notion.blocks.children.list({ block_id: child.id });
-						let columns_items = await serializeBlockChildren(columns.results);
+						columns = await notion.blocks.children.list({ block_id: child.id });
+						columns_items = await serializeBlockChildren(columns.results);
 						array_of_blocks.push(new Block('column_list', columns_items));
 						break;
 
@@ -99,17 +94,11 @@ export async function getProjects() {
 						);
 						break;
 
-					// add
-					// Block type image
-					// Block type column_list
-					// Block type divider
-					// Block type heading_3
-					// Block type bulleted_list_item
-
 					default:
 						console.log(`Unknown block type ${child.type}`);
 				}
 			}
+		}
 
 		return array_of_blocks;
 	}
@@ -142,18 +131,26 @@ export async function getProjects() {
 						: ''
 			};
 
-			if (r.folder == 'visit-fallon') {
-				console.log(block);
-			}
-			// console.log(r)
-			console.log(page.id);
-			console.log(page.url);
-
 			return r;
 		})
 	);
 
-	// console.log(projects)
-
 	return projects.reverse();
+}
+
+// Main function to run the script
+async function main() {
+    try {
+        console.log('Fetching projects from Notion...');
+        const projects = await getProjects();
+        console.log(`Successfully fetched ${projects.length} projects`);
+        console.log('Projects:', JSON.stringify(projects, null, 2));
+    } catch (error) {
+        console.error('Error:', error.message);
+    }
+}
+
+// Run the script if it's being executed directly
+if (import.meta.url === `file://${process.argv[1]}`) {
+    main();
 }

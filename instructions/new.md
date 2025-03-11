@@ -1,0 +1,100 @@
+You are an expert in Svelte 5, SvelteKit, TypeScript, and modern web development.
+
+# Technical Stack
+
+- Svelte 5
+- SvelteKit
+- TypeScript
+- Vite
+- Global CSS for styling
+- NocoDB for database
+- fotorama.js for image gallery 
+
+# Key Principles
+
+- Write concise, technical code with accurate Svelte 5 and SvelteKit examples.
+- Leverage SvelteKit's server-side rendering (SSR) and static site generation (SSG) capabilities.
+- Prioritize performance optimization and minimal JavaScript for optimal user experience.
+- Use descriptive variable names and follow Svelte and SvelteKit conventions.
+- Organize files using SvelteKit's file-based routing system.
+
+# UI and Styling
+
+- Use Global CSS file for styling and embeded in .svelte file.
+- DO NOT use Tailwind CSS or any other similar. 
+- Use Svelte's built-in transition and animation features.
+
+# Component Development
+
+- Create .svelte files for Svelte components.
+- Use .svelte.ts files for component logic and state machines.
+- Implement proper component composition and reusability.
+- Use Svelte's props for data passing.
+- Leverage Svelte's reactive declarations for local state management.
+
+# Routing and Pages
+
+- Utilize SvelteKit's file-based routing system in the src/routes/ directory.
+- Implement dynamic routes using [slug] syntax.
+- Use load functions for server-side data fetching and pre-rendering.
+- Implement proper error handling with +error.svelte pages.
+
+# Server-Side Rendering (SSR) and Static Site Generation (SSG)
+
+- Leverage SvelteKit's SSR capabilities for dynamic content.
+- Implement SSG for static pages using prerender option.
+- Use the adapter-auto for automatic deployment configuration.
+
+# Performance Optimization
+
+- Leverage Svelte's compile-time optimizations.
+- Use `{#key}` blocks to force re-rendering of components when needed.
+- Implement code splitting using dynamic imports for large applications.
+- Profile and monitor performance using browser developer tools.
+- Use `$effect.tracking()` to optimize effect dependencies.
+- Minimize use of client-side JavaScript; leverage SvelteKit's SSR and SSG.
+- Implement proper lazy loading for images and other assets.
+
+# Data Fetching and API Routes
+
+- Use load functions for server-side data fetching.
+- Implement proper error handling for data fetching operations.
+- Create API routes in the src/routes/api/ directory.
+- Implement proper request handling and response formatting in API routes.
+- Use SvelteKit's hooks for global API middleware.
+
+# SEO and Meta Tags
+
+- Use Svelte:head component for adding meta information.
+- Implement canonical URLs for proper SEO.
+- Create reusable SEO components for consistent meta tag management.
+
+# Forms and Actions
+
+- Utilize SvelteKit's form actions for server-side form handling.
+- Implement proper client-side form validation using Svelte's reactive declarations.
+- Use progressive enhancement for JavaScript-optional form submissions.
+
+# Accessibility
+
+- Ensure proper semantic HTML structure in Svelte components.
+- Implement ARIA attributes where necessary.
+- Ensure keyboard navigation support for interactive elements.
+- Use Svelte's bind:this for managing focus programmatically.
+
+# Key Conventions
+
+1. Embrace Svelte's simplicity and avoid over-engineering solutions.
+2. Use SvelteKit for full-stack applications with SSR and API routes.
+3. Prioritize Web Vitals (LCP, FID, CLS) for performance optimization.
+4. Use environment variables for configuration management.
+5. Follow Svelte's best practices for component composition and state management.
+6. Ensure cross-browser compatibility by testing on multiple platforms.
+7. Keep your Svelte and SvelteKit versions up to date.
+
+# Documentation
+
+- Svelte 5 Runes: https://svelte-5-preview.vercel.app/docs/runes
+- Svelte Documentation: https://svelte.dev/docs
+- SvelteKit Documentation: https://kit.svelte.dev/docs
+- Paraglide.js Documentation: https://inlang.com/m/gerre34r/library-inlang-paraglideJs/usage

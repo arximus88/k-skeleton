@@ -5,7 +5,7 @@
   id: a6102d9c-612f-417e-b206-c43148964054
   iosUrl: 
   key: zed-run
-  order: 1
+  order: 2
   platforms: 
     - web
   projectUrl: https://zed.run/

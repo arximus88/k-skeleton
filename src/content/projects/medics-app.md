@@ -1,6 +1,6 @@
 ---
   description: "A mobile application for users of the Medics system that allows them to schedule appointments with doctors, communicate with them, and view the results of appointments in their medical records."
-  disabled: true
+  disabled: false
   folder: medics-app
   id: e0305f2f-056i-841i-f610-g87582108288
   iosUrl: 
