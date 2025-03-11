@@ -19,7 +19,7 @@
 		},
 		{
 			title: 'GitHub',
-			url: 'https://github.com/arximus88/k-projekt',
+			url: 'https://github.com/arximus88/k-skeleton',
 			description: 'Код цього веб-сайту',
 			icon: '💻'
 		}
