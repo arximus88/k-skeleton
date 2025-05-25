@@ -12,8 +12,26 @@
 </script>
 
 <svelte:head>
-	<title>Borys's Projects</title>
-	<meta name="description" content="Projects" />
+	<title>Projects - Borys Kharchenko Portfolio</title>
+	<meta name="description" content="Portfolio of product design projects including Web3 applications, healthcare platforms, and B2C products. Work with companies like Virtually Human, Chegg, Upwork." />
+	<meta name="keywords" content="product design portfolio, UX projects, UI design cases, Web3 design, healthcare design, B2C design" />
+	<meta name="author" content="Borys Kharchenko" />
+	
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="Projects - Borys Kharchenko Portfolio" />
+	<meta property="og:description" content="Portfolio of product design projects including Web3 applications, healthcare platforms, and B2C products." />
+	<meta property="og:image" content="/images/logo-bo.png" />
+	<meta property="og:url" content="https://kharchenko.work/projects" />
+	
+	<!-- Twitter -->
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="Projects - Borys Kharchenko Portfolio" />
+	<meta name="twitter:description" content="Portfolio of product design projects including Web3 applications, healthcare platforms, and B2C products." />
+	<meta name="twitter:image" content="/images/logo-bo.png" />
+	
+	<!-- Canonical URL -->
+	<link rel="canonical" href="https://kharchenko.work/projects" />
 </svelte:head>
 
 <h1>Projects</h1>

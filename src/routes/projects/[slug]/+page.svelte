@@ -9,8 +9,26 @@
 </script>
 
 <svelte:head>
-	<title>{project.title} - Project</title>
+	<title>{project.title} - Borys Kharchenko Portfolio</title>
 	<meta name="description" content={project.description} />
+	<meta name="keywords" content="product design, UX/UI, {project.tags || ''}, {project.clientName}" />
+	<meta name="author" content="Borys Kharchenko" />
+	
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="{project.title} - Borys Kharchenko Portfolio" />
+	<meta property="og:description" content={project.description} />
+	<meta property="og:image" content="/images/projects-bg/{project.folder}.webp" />
+	<meta property="og:url" content="https://kharchenko.work/projects/{project.folder}" />
+	
+	<!-- Twitter -->
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="{project.title} - Borys Kharchenko Portfolio" />
+	<meta name="twitter:description" content={project.description} />
+	<meta name="twitter:image" content="/images/projects-bg/{project.folder}.webp" />
+	
+	<!-- Canonical URL -->
+	<link rel="canonical" href="https://kharchenko.work/projects/{project.folder}" />
 </svelte:head>
 
 <!-- Main content -->

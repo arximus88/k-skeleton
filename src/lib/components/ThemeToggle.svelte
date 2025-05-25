@@ -29,21 +29,18 @@
 	];
 
 	onMount(() => {
-		const savedTheme = localStorage.getItem('theme') || '';
-		if (savedTheme) {
-			theme.current = savedTheme;
-		}
+		const savedTheme = localStorage.getItem('theme') || 'dark';
+		theme.current = savedTheme;
 		isSystemTheme = JSON.parse(localStorage.getItem('useSystemTheme') || 'false');
-		try {
-			selected = isSystemTheme ? 'default' : theme.current;
-			let selectedElementCollection = searchElementOptions(selected);
-			if (selectedElementCollection) {
-				handleSelect(selectedElementCollection);
-				dispatchSelectedTheme(selected);
-			}
-		} catch (err) {
-			console.log(err);
-		}	
+		
+		selected = isSystemTheme ? 'default' : theme.current;
+		let selectedElementCollection = searchElementOptions(selected);
+		if (selectedElementCollection) {
+			selectedImage = selectedElementCollection.image;
+		}
+		
+		// Застосовуємо тему до документа
+		document.documentElement.setAttribute('data-theme', theme.current);
 	})
 
 	
@@ -81,7 +78,14 @@
 		selected = option.value;
 		checkDefaultTheme();
 		showOptions = false;
-		dispatchSelectedTheme(selected);
+		
+		// Оновлюємо тему
+		const finalTheme = isSystemTheme ? (isDarkTheme ? 'dark' : 'light') : selected;
+		theme.current = finalTheme;
+		localStorage.setItem('theme', finalTheme);
+		document.documentElement.setAttribute('data-theme', finalTheme);
+		
+		dispatchSelectedTheme(finalTheme);
 	}
 
 	function handleKeyDown(event: KeyboardEvent) {

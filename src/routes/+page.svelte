@@ -4,8 +4,46 @@
 </script>
 
 <svelte:head>
-	<title>Borys's Place</title>
-	<meta name="description" content="Borys's Place" />
+	<title>Borys Kharchenko - Product Designer Portfolio</title>
+	<meta name="description" content="Strategic Product Designer with 10+ years of experience in Web3, B2C platforms, healthcare, and AI. Founding designer for ZED RUN, senior designer for Human Park." />
+	<meta name="keywords" content="product designer, UX designer, UI designer, Web3 design, blockchain design, portfolio, Borys Kharchenko" />
+	<meta name="author" content="Borys Kharchenko" />
+	
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="Borys Kharchenko - Product Designer Portfolio" />
+	<meta property="og:description" content="Strategic Product Designer with 10+ years of experience in Web3, B2C platforms, healthcare, and AI. Founding designer for ZED RUN, senior designer for Human Park." />
+	<meta property="og:image" content="/images/logo-bo.png" />
+	<meta property="og:url" content="https://kharchenko.work" />
+	
+	<!-- Twitter -->
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="Borys Kharchenko - Product Designer Portfolio" />
+	<meta name="twitter:description" content="Strategic Product Designer with 10+ years of experience in Web3, B2C platforms, healthcare, and AI." />
+	<meta name="twitter:image" content="/images/logo-bo.png" />
+	
+	<!-- Canonical URL -->
+	<link rel="canonical" href="https://kharchenko.work" />
+	
+	<!-- JSON-LD Structured Data -->
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "Person",
+		"name": "Borys Kharchenko",
+		"jobTitle": "Product Designer",
+		"description": "Strategic Product Designer with 10+ years of experience",
+		"url": "https://kharchenko.work",
+		"sameAs": [
+			"https://www.linkedin.com/in/boryskharchenko/"
+		],
+		"knowsAbout": ["Product Design", "UX Design", "UI Design", "Web3", "Blockchain", "Healthcare Design"],
+		"worksFor": {
+			"@type": "Organization",
+			"name": "Freelance"
+		}
+	}
+	</script>
 </svelte:head>
 <svelte:window bind:innerWidth />
 <div class="home-block">

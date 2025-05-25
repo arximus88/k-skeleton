@@ -69,7 +69,7 @@
 						<img
 							class="contain"
 							src={`/images/projects-bg/${folder}.jpg`}
-							alt={title}
+							alt="{title} - {description}"
 							on:error={handleImageError}
 						/>
 					</picture>
