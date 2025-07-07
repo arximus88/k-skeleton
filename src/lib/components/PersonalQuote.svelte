@@ -12,8 +12,7 @@
 	<PersonalAvatar {bg} {avatar} />
 	<div class="quote-text" style="background-color: {textbg};">
 		<p>
-			{text}
-			<slot />
+			<slot>{text}</slot>
 		</p>
 	</div>
 </div>

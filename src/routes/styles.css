@@ -178,7 +178,8 @@ a {
 }
 .project-slider {
 	background-color: transparent;
-	max-width: 640px;
+	width: 100%;
+	max-width: 100%;
 }
 
 @media (max-width: 1024px) {
@@ -273,7 +274,7 @@ a {
 	}
 }
 
-page-container {
+.page-container {
 	padding-top: 32px;
 }
 

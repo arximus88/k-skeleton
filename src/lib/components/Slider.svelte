@@ -80,4 +80,12 @@ take from and to from the project content block
 {/if}
 
 <style>
+	.project-slider {
+		width: 100%;
+		margin: 2em 0;
+	}
+
+	.fotorama {
+		width: 100% !important;
+	}
 </style>

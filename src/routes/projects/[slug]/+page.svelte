@@ -83,7 +83,7 @@
 <style>
 	.text-secondary {
 		color: var(--secondary-basic);
-		padding: 1em 1em;
+		margin: 1em 0;
 	}
 	img {
 		max-width: 100%;
