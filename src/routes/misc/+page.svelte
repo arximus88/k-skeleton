@@ -6,17 +6,20 @@
 		{
 			title: 'AI Meme Cats Sticker Pack',
 			url: 'https://t.me/addstickers/aimemecats',
-			description: 'Add AI-generated cat stickers to your Telegram'
+			description: 'Add AI-generated cat stickers to your Telegram',
+			icon: '🐱'
 		},
 		{
 			title: 'Instagram',
 			url: 'https://www.instagram.com/arximus88/',
-			description: 'Follow my updates and behind-the-scenes content'
+			description: 'Follow my updates and behind-the-scenes content',
+			icon: '📸'
 		},
 		{
 			title: 'GitHub Repository',
 			url: 'https://github.com/arximus88/k-skeleton',
-			description: 'Source code for this website'
+			description: 'Source code for this website',
+			icon: '💻'
 		}
 	];
 
@@ -76,7 +79,10 @@
 		<div class="links-grid">
 			{#each links as link}
 				<div class="link-card">
-					<h3 class="text-primary">{link.title}</h3>
+					<div class="link-header">
+						<div class="link-icon">{link.icon}</div>
+						<h3 class="text-primary">{link.title}</h3>
+					</div>
 					<p class="text-secondary">{link.description}</p>
 					<div class="link-actions">
 						<Button
@@ -138,8 +144,20 @@
 		transform: translateY(-2px);
 	}
 
+	.link-header {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		margin-bottom: 12px;
+	}
+
+	.link-icon {
+		font-size: 24px;
+		line-height: 1;
+	}
+
 	.link-card h3 {
-		margin: 0 0 8px 0;
+		margin: 0;
 		font-size: 18px;
 		font-weight: 600;
 	}
@@ -164,7 +182,6 @@
 
 	.credit-card {
 		padding: 20px;
-		background: var(--card-bg);
 		border-radius: 8px;
 		border: 1px solid var(--slight-basic);
 		transition: all 0.3s ease;

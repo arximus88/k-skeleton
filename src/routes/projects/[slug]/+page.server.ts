@@ -7,6 +7,17 @@ interface ContentBlock {
 }
 
 /** 
+ * Converts Markdown formatting to HTML
+ * @param {string} text - Text with Markdown formatting
+ * @returns {string} - HTML formatted text
+ */
+function convertMarkdownToHtml(text: string): string {
+	return text
+		.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold **text**
+		.replace(/\*(.*?)\*/g, '<em>$1</em>'); // Italic *text*
+}
+
+/** 
  * Парсить контент проекту з Markdown або JSON в масив блоків
  * @param {string} content - Контент проекту
  * @returns {Array<ContentBlock>} - Масив блоків
@@ -15,62 +26,39 @@ function parseContent(content: string): Array<ContentBlock> {
 	if (!content) return [];
 
 	try {
-		// Перевіряємо, чи є в контенті JSON блоки
-		const jsonBlocks: Array<ContentBlock> = [];
-		const jsonRegex = /```json\s*\n\s*(\{[\s\S]*?\})\s*\n\s*```/g;
-		let jsonMatch;
-		
-		while ((jsonMatch = jsonRegex.exec(content)) !== null) {
-			try {
-				const jsonData = JSON.parse(jsonMatch[1]);
-				if (jsonData.from && jsonData.to) {
-					jsonBlocks.push({
-						type: 'slider',
-						content: jsonData
-					});
-				}
-			} catch (e) {
-				console.error('Error parsing JSON block:', e);
-			}
-		}
-
-		// Розділяємо контент на параграфи
-		const paragraphs = content
-			.replace(/```json\s*\n\s*\{[\s\S]*?\}\s*\n\s*```/g, '') // Видаляємо JSON блоки
-			.split('\n\n')
-			.filter((p: string) => p.trim() !== '');
-
+		// Розділяємо контент на частини, зберігаючи позиції JSON блоків
+		const parts = content.split(/(?=```json|(?<=```\n\n))/);
 		const blocks: Array<ContentBlock> = [];
 
-		paragraphs.forEach((paragraph: string) => {
-			// Перевіряємо, чи це цитата
-			if (paragraph.trim().startsWith('_&gt;') || paragraph.trim().startsWith('_>')) {
-				blocks.push({
-					type: 'quote',
-					content: paragraph.replace(/^_&gt;|^_>/g, '').trim()
-				});
-			} 
-			// Перевіряємо, чи це роздільник
-			else if (paragraph.trim() === '<br>' || paragraph.trim() === '<hr>') {
-				blocks.push({
-					type: 'divider',
-					content: ''
-				});
-			}
-			// Звичайний параграф
-			else {
-				blocks.push({
-					type: 'paragraph',
-					content: paragraph.trim()
-				});
+		parts.forEach((part: string) => {
+			part = part.trim();
+			if (!part) return;
+
+			// Перевіряємо, чи це JSON блок
+			const jsonMatch = part.match(/```json\s*\n\s*(\{[\s\S]*?\})\s*\n\s*```/);
+			if (jsonMatch) {
+				try {
+					const jsonData = JSON.parse(jsonMatch[1]);
+					if (jsonData.from && jsonData.to) {
+						blocks.push({
+							type: 'slider',
+							content: jsonData
+						});
+					}
+				} catch (e) {
+					console.error('Error parsing JSON block:', e);
+				}
+				
+				// Обробляємо текст після JSON блоку, якщо він є
+				const remainingText = part.replace(/```json\s*\n\s*\{[\s\S]*?\}\s*\n\s*```/, '').trim();
+				if (remainingText) {
+					parseTextContent(remainingText, blocks);
+				}
+			} else {
+				// Обробляємо звичайний текстовий контент
+				parseTextContent(part, blocks);
 			}
 		});
-
-		// Додаємо JSON блоки в правильні місця
-		if (jsonBlocks.length > 0) {
-			// Для простоти додаємо їх на початок
-			return [...jsonBlocks, ...blocks];
-		}
 
 		return blocks;
 	} catch (e) {
@@ -80,6 +68,42 @@ function parseContent(content: string): Array<ContentBlock> {
 			content: content || ''
 		}];
 	}
+}
+
+/**
+ * Парсить текстовий контент і додає його в масив блоків
+ * @param {string} text - Текстовий контент
+ * @param {Array<ContentBlock>} blocks - Масив блоків для додавання
+ */
+function parseTextContent(text: string, blocks: Array<ContentBlock>): void {
+	const paragraphs = text.split('\n\n').filter((p: string) => p.trim() !== '');
+
+	paragraphs.forEach((paragraph: string) => {
+		paragraph = paragraph.trim();
+		if (!paragraph) return;
+
+		// Перевіряємо, чи це цитата
+		if (paragraph.startsWith('_&gt;') || paragraph.startsWith('_>')) {
+			blocks.push({
+				type: 'quote',
+				content: convertMarkdownToHtml(paragraph.replace(/^_&gt;|^_>/g, '').trim())
+			});
+		} 
+		// Перевіряємо, чи це роздільник
+		else if (paragraph === '<br>' || paragraph === '<hr>') {
+			blocks.push({
+				type: 'divider',
+				content: ''
+			});
+		}
+		// Звичайний параграф
+		else {
+			blocks.push({
+				type: 'paragraph',
+				content: convertMarkdownToHtml(paragraph)
+			});
+		}
+	});
 }
 
 export const load: PageServerLoad = async ({ params, fetch }) => {
