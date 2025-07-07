@@ -46,6 +46,11 @@
 	<Card
 		title="Project Title"
 		description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vitae ultricies ultricies, nisl nisl aliquam nisl, vitae ultricies nisl nisl eget nisl. Sed euismod, nisl vitae ultricies ultricies, nisl nisl aliquam nisl, vitae ultricies nisl nisl eget nisl."
+		folder="chegg"
+		clientName="Example Client"
+		tags={["Web", "Design"]}
+		year={2024}
+		live="live"
 	/>
 	<ProjectDetails
 		clientName="Client Name"

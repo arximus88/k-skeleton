@@ -12,9 +12,9 @@
 		<li aria-current={$page.url.pathname === '/projects' ? 'page' : undefined}>
 			<a class="nav-link" href="/projects"><Icon name="presentation" size={20} />Projects</a>
 		</li>
-		<li aria-current={$page.url.pathname === '/cats' ? 'page' : undefined}>
+		<!-- <li aria-current={$page.url.pathname === '/cats' ? 'page' : undefined}>
 			<a class="nav-link" href="/cats"><Icon name="stars" size={20} />Cats</a>
-		</li>
+		</li> -->
 		<li aria-current={$page.url.pathname === '/misc' ? 'page' : undefined}>
 			<a class="nav-link" href="/misc"><Icon name="code-snippet" size={20} />Misc</a>
 		</li>

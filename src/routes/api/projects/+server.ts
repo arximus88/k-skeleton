@@ -28,9 +28,9 @@ async function getProjects() {
 
 		const data = await response.json();
 
-		// Фільтруємо проекти, щоб не показувати проекти з live === "disabled"
+		// Фільтруємо проекти, щоб не показувати проекти з live === "disabled" та проекти без folder
 		return {
-			list: data.list.filter((project: Project) => project.live !== 'disabled')
+			list: data.list.filter((project: Project) => project.live !== 'disabled' && project.folder && project.folder.trim() !== '')
 		};
 	} catch (error) {
 		console.error('Помилка при отриманні даних з NocoDB:', error);

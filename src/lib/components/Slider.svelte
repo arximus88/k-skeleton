@@ -73,7 +73,7 @@ take from and to from the project content block
 		data-allowfullscreen="true"
 	>
 		{#each Array.from({ length: to - from + 1 }, (_, i) => from + i) as number}
-			<a href={`/images/projects/${folder}/${number}.jpg`} title={`photo${number}`}> </a>
+			<a href={`/images/projects/${folder}/${number}.jpg`} title={`photo${number}`} aria-label={`Project image ${number}`}> </a>
 		{/each}
 	</div>
 </div>

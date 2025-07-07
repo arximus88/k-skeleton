@@ -2,7 +2,10 @@
   "permissions": {
     "allow": [
       "Bash(bun run:*)",
-      "Bash(rg:*)"
+      "Bash(rg:*)",
+      "Bash(lsof:*)",
+      "Bash(ss:*)",
+      "Bash(pkill:*)"
     ],
     "deny": []
   }
