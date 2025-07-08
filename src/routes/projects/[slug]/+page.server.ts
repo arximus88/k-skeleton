@@ -12,9 +12,21 @@ interface ContentBlock {
  * @returns {string} - HTML formatted text
  */
 function convertMarkdownToHtml(text: string): string {
-	return text
+	let result = text
 		.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold **text**
-		.replace(/\*(.*?)\*/g, '<em>$1</em>'); // Italic *text*
+		.replace(/\*(.*?)\*/g, '<em>$1</em>') // Italic *text*
+		.replace(/^### (.*$)/gm, '<h3>$1</h3>') // Heading 3
+		.replace(/^## (.*$)/gm, '<h2>$1</h2>') // Heading 2
+		.replace(/^# (.*$)/gm, '<h1>$1</h1>'); // Heading 1
+	
+	// Handle bullet points - convert lines starting with "- " to list items
+	if (result.includes('\n-   ') || result.startsWith('-   ')) {
+		result = result.replace(/^-\s{3}(.*)$/gm, '<li>$1</li>');
+		result = result.replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>');
+		result = result.replace(/<\/li>\s*<li>/g, '</li><li>');
+	}
+	
+	return result;
 }
 
 /** 
@@ -83,10 +95,24 @@ function parseTextContent(text: string, blocks: Array<ContentBlock>): void {
 		if (!paragraph) return;
 
 		// Перевіряємо, чи це цитата
-		if (paragraph.startsWith('_&gt;') || paragraph.startsWith('_>')) {
+		if (paragraph.startsWith('&gt;') || paragraph.startsWith('>')) {
 			blocks.push({
 				type: 'quote',
-				content: convertMarkdownToHtml(paragraph.replace(/^_&gt;|^_>/g, '').trim())
+				content: convertMarkdownToHtml(paragraph.replace(/^&gt;|^>/g, '').trim())
+			});
+		}
+		// Перевіряємо, чи це заголовок
+		else if (paragraph.match(/^#{1,3}\s+/)) {
+			blocks.push({
+				type: 'heading',
+				content: convertMarkdownToHtml(paragraph)
+			});
+		}
+		// Перевіряємо, чи це список
+		else if (paragraph.includes('\n-   ') || paragraph.startsWith('-   ')) {
+			blocks.push({
+				type: 'list',
+				content: convertMarkdownToHtml(paragraph)
 			});
 		} 
 		// Перевіряємо, чи це роздільник

@@ -47,6 +47,10 @@
 						<PersonalQuote>
 							{@html block.content}
 						</PersonalQuote>
+					{:else if block.type === 'heading'}
+						<div class="heading-content">{@html block.content}</div>
+					{:else if block.type === 'list'}
+						<div class="list-content">{@html block.content}</div>
 					{:else if block.type === 'divider'}
 						<hr class="solid" />
 					{:else if block.type === 'image'}
@@ -87,5 +91,30 @@
 	}
 	img {
 		max-width: 100%;
+	}
+	.heading-content :global(h1),
+	.heading-content :global(h2),
+	.heading-content :global(h3) {
+		color: var(--primary-basic);
+		margin: 1.5em 0 0.5em 0;
+		font-weight: 600;
+	}
+	.heading-content :global(h1) {
+		font-size: 2em;
+	}
+	.heading-content :global(h2) {
+		font-size: 1.5em;
+	}
+	.heading-content :global(h3) {
+		font-size: 1.2em;
+	}
+	.list-content :global(ul) {
+		color: var(--secondary-basic);
+		margin: 1em 0;
+		padding-left: 1.5em;
+	}
+	.list-content :global(li) {
+		margin: 0.5em 0;
+		line-height: 1.6;
 	}
 </style>

@@ -5,7 +5,9 @@
       "Bash(rg:*)",
       "Bash(lsof:*)",
       "Bash(ss:*)",
-      "Bash(pkill:*)"
+      "Bash(pkill:*)",
+      "WebFetch(domain:docs.anthropic.com)",
+      "Bash(mv:*)"
     ],
     "deny": []
   }

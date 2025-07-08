@@ -1,13 +1,20 @@
-import { build, files, prerendered, version } from '$service-worker';
+/// <reference types="@sveltejs/kit" />
+/// <reference no-default-lib="true"/>
+/// <reference lib="esnext" />
+/// <reference lib="webworker" />
+
+import { build, files, version } from '$service-worker';
+
+declare const self: ServiceWorkerGlobalScope;
 
 // Generate unique ID for new cache
 const cacheId = `cache${version}`;
 
-// Build files + /static files + prerendered pages
-const cachePayloadArr = [...build, ...files, ...prerendered];
+// Build files + /static files
+const cachePayloadArr = [...build, ...files];
 const cachePayloadSet = new Set(cachePayloadArr);
 
-self.addEventListener('install', function (event) {
+self.addEventListener('install', function (event: ExtendableEvent) {
 	event.waitUntil(
 		caches
 			.open(cacheId)
@@ -16,7 +23,7 @@ self.addEventListener('install', function (event) {
 	);
 });
 
-self.addEventListener('activate', function (event) {
+self.addEventListener('activate', function (event: ExtendableEvent) {
 	event.waitUntil(
 		caches.keys().then(async (keys) => {
 			for (const key of keys) {
@@ -29,7 +36,7 @@ self.addEventListener('activate', function (event) {
 });
 
 // prettier-ignore
-self.addEventListener('fetch', (event) => {
+self.addEventListener('fetch', (event: FetchEvent) => {
 	if (
 		event.request.method !== 'GET' || 
 		event.request.headers.has('range')
@@ -56,7 +63,7 @@ self.addEventListener('fetch', (event) => {
 })
 
 // prettier-ignore
-function checks(event) {
+function checks(event: FetchEvent) {
 	const url = new URL(event.request.url)
 
 	// Omit data urls, etc...
@@ -84,7 +91,7 @@ function checks(event) {
 	}
 }
 
-async function fetchAndCache(request) {
+async function fetchAndCache(request: Request) {
 	const cache = await caches.open(`offline${version}`);
 
 	try {
